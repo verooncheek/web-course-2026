@@ -5,72 +5,84 @@
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #fcecef;
+    color: #4a3b40;
     line-height: 1.6;
-    color: #333333;
-    background-color: #f4f6f9;
     
-    /* Использование Flexbox для центрирования макета страницы */
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
+    justify-content: center;
+    padding: 40px 20px;
+    min-height: 100vh;
 }
 
-/* 1. Шапка (Header) */
-.header {
+.resume-sheet {
     width: 100%;
-    max-width: 800px;
-    background-color: #ffffff;
-    padding: 30px;
+    max-width: 850px;
+    background-color: #fffafb;
+    border: 2px solid #f3d1d7;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    padding: 45px;
+    box-shadow: 0 15px 35px rgba(212, 143, 153, 0.15);
+    
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
 
-    /* Flexbox настройки */
+.header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 2px dashed #f3d1d7;
+    padding-bottom: 25px;
     gap: 20px;
 }
 
-.header-info {
+.header-titles {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 6px;
 }
 
 .author-name {
-    font-size: 28px;
-    color: #1a252f;
+    font-family: 'Caveat', cursive;
+    font-size: 52px;
+    color: #b56576;
+    font-weight: 700;
+    line-height: 1.1;
 }
 
 .author-role {
-    font-size: 18px;
-    font-weight: bold;
-    color: #0066cc;
+    font-size: 15px;
+    font-weight: 600;
+    color: #8c6d75;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .author-slogan {
     font-style: italic;
-    color: #666666;
+    color: #9e7f87;
+    font-size: 14px;
 }
 
+/* Круглая аватарка в стиле макета */
 .avatar {
     width: 130px;
     height: 130px;
     border-radius: 50%;
     object-fit: cover;
+    border: 4px solid #f7e1e6;
+    box-shadow: 0 5px 15px rgba(181, 101, 118, 0.2);
 }
 
-/* 2. Навигация (Nav) */
+/* 2. Навигация */
 .nav {
-    width: 100%;
-    max-width: 800px;
-    margin-top: 20px;
-    background-color: #2c3e50;
+    background-color: #f9ecef;
+    padding: 10px 20px;
     border-radius: 8px;
-    padding: 10px;
 }
 
 .nav-list {
@@ -79,63 +91,69 @@ body {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
 .nav-link {
-    color: #ffffff;
+    color: #8c6d75;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 14px;
     padding: 6px 12px;
-    transition: color 0.2s ease, background-color 0.2s ease;
+    border-radius: 6px;
+    transition: all 0.2s ease;
 }
 
 .nav-link:hover {
-    color: #0066cc;
-    background-color: #ffffff;
-    border-radius: 4px;
+    background-color: #b56576;
+    color: #ffffff;
 }
 
-/* 3. Основная часть (Main) */
+/* 3. Основной контент */
 .main-content {
-    width: 100%;
-    max-width: 800px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    margin-top: 20px;
+    gap: 25px;
 }
 
 .section {
-    background-color: #ffffff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
 }
 
 .section-title {
-    font-size: 22px;
-    color: #2c3e50;
-    border-bottom: 2px solid #eef2f5;
-    padding-bottom: 8px;
+    font-family: 'Caveat', cursive;
+    font-size: 32px;
+    color: #b56576;
+    border-bottom: 1px solid #f3d1d7;
+    padding-bottom: 4px;
 }
 
-/* Список образования */
+.bio p {
+    font-size: 14px;
+    color: #59484e;
+    text-align: justify;
+}
+
 .education-list {
-    list-style-type: none;
+    list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
+}
+
+.education-item strong {
+    color: #4a3b40;
+    font-size: 15px;
 }
 
 .education-item p {
-    color: #555555;
+    color: #8c6d75;
+    font-size: 13px;
 }
 
-/* Теги/Чипсы навыков */
 .skills-container {
     display: flex;
     flex-direction: row;
@@ -146,26 +164,28 @@ body {
 }
 
 .skill {
-    background-color: #e6f0fa;
-    color: #0066cc;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-weight: bold;
-    font-size: 14px;
+    background-color: #f9ecef;
+    color: #b56576;
+    padding: 6px 14px;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 13px;
+    border: 1px solid #f3d1d7;
+    transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-/* 4. Контакты (Footer) */
+.skill:hover {
+    background-color: #b56576;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
 .footer {
-    width: 100%;
-    max-width: 800px;
-    margin-top: 20px;
-    background-color: #ffffff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
+    border-top: 2px dashed #f3d1d7;
+    padding-top: 20px;
 }
 
 .contacts-list {
@@ -179,13 +199,17 @@ body {
 }
 
 .contact-link {
-    color: #0066cc;
+    color: #b56576;
     text-decoration: none;
-    font-weight: bold;
-    transition: color 0.2s ease, text-decoration 0.2s ease;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 6px 14px;
+    border-radius: 8px;
+    background-color: #f9ecef;
+    transition: all 0.2s ease;
 }
 
 .contact-link:hover {
-    color: #004080;
-    text-decoration: underline;
+    background-color: #4a3b40;
+    color: #ffffff;
 }
