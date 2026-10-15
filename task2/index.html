@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Positivus — digital-агентство (Лабораторная работа №2)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+
+  <header class="header">
+    <a class="logo" href="#top"><span class="logo__mark"></span>Positivus</a>
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+    <label for="menu-toggle" class="burger" aria-label="Меню"><span></span><span></span><span></span></label>
+    <nav class="nav">
+      <a href="#about">About us</a>
+      <a href="#services">Services</a>
+      <a href="#cases">Use Cases</a>
+      <a href="#contact">Contact</a>
+      <a class="btn btn--outline" href="#contact">Request a quote</a>
+    </nav>
+  </header>
+
+  <main class="main" id="top">
+
+    <section class="hero" id="about">
+      <div class="hero__text">
+        <h1>Navigating the digital landscape for success</h1>
+        <p>Our digital marketing agency helps businesses grow and succeed online through a range of services including SEO, PPC, social media marketing, and content creation.</p>
+        <a class="btn btn--dark" href="#contact">Book a consultation</a>
+      </div>
+      <div class="hero__art" aria-hidden="true">
+        <svg viewBox="0 0 300 260">
+          <ellipse cx="150" cy="140" rx="130" ry="45" fill="none" stroke="#191A23" stroke-width="2" transform="rotate(-20 150 140)"/>
+          <polygon points="90,150 190,80 215,125 130,190" fill="#B9FF66" stroke="#191A23" stroke-width="5" stroke-linejoin="round"/>
+          <circle cx="235" cy="60" r="18" fill="#191A23"/>
+          <circle cx="60" cy="70" r="12" fill="#191A23"/>
+          <polygon points="70,200 82,225 70,250 58,225" fill="#191A23"/>
+        </svg>
+      </div>
+    </section>
+
+    <section class="logos" aria-label="Клиенты">
+      <span>amazon</span><span>dribbble</span><span>HubSpot</span><span>Notion</span><span>NETFLIX</span><span>zoom</span>
+    </section>
+
+    <section class="services" id="services">
+      <div class="section-head">
+        <h2 class="tag">Services</h2>
+        <p>At our digital marketing agency, we offer a range of services to help businesses grow and succeed online.</p>
+      </div>
+      <div class="cards">
+        <article class="card card--light">
+          <h3><span>Search engine optimization</span></h3>
+          <a class="card__link" href="#contact"><i class="arrow">↗</i>Learn more</a>
+        </article>
+        <article class="card card--green">
+          <h3><span>Pay-per-click advertising</span></h3>
+          <a class="card__link" href="#contact"><i class="arrow">↗</i>Learn more</a>
+        </article>
+        <article class="card card--dark">
+          <h3><span>Social Media Marketing</span></h3>
+          <a class="card__link" href="#contact"><i class="arrow">↗</i>Learn more</a>
+        </article>
+        <article class="card card--light">
+          <h3><span>Email Marketing</span></h3>
+          <a class="card__link" href="#contact"><i class="arrow">↗</i>Learn more</a>
+        </article>
+        <article class="card card--green">
+          <h3><span>Content Creation</span></h3>
+          <a class="card__link" href="#contact"><i class="arrow">↗</i>Learn more</a>
+        </article>
+        <article class="card card--dark">
+          <h3><span>Analytics and Tracking</span></h3>
+          <a class="card__link" href="#contact"><i class="arrow">↗</i>Learn more</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="cases" id="cases">
+      <div class="case">
+        <p>For a B2B software company, we developed an SEO strategy that resulted in a first page ranking for key keywords and a 200% increase in organic traffic.</p>
+        <a href="#contact">Learn more ↗</a>
+      </div>
+      <div class="case">
+        <p>For a national retail chain, we created a social media marketing campaign that increased followers by 25% and generated a 20% increase in online sales.</p>
+        <a href="#contact">Learn more ↗</a>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="section-head">
+        <h2 class="tag">Contact us</h2>
+        <p>Connect with us: Let's discuss your digital marketing needs.</p>
+      </div>
+      <form class="form">
+        <label class="field">Имя
+          <input type="text" name="name" placeholder="Ваше имя" required>
+        </label>
+        <label class="field">Email
+          <input type="email" name="email" placeholder="you@example.com" required>
+        </label>
+        <label class="field field--wide">Сообщение
+          <textarea name="message" rows="5" placeholder="Расскажите о задаче" required></textarea>
+        </label>
+        <button class="btn btn--dark form__btn" type="submit">Отправить</button>
+      </form>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer__top">
+      <a class="logo logo--light" href="#top"><span class="logo__mark logo__mark--green"></span>Positivus</a>
+      <nav class="footer__nav">
+        <a href="#about">About us</a>
+        <a href="#services">Services</a>
+        <a href="#cases">Use Cases</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+    <p class="footer__copy">© 2026 Positivus. All Rights Reserved.</p>
+  </footer>
+
+</div>
+</body>
+</html>
