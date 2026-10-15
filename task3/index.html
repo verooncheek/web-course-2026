@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Positivus — Task Manager (Лабораторная работа №3)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Множество цветных фоновых пятен вокруг панели -->
+    <div class="bg-decor bg-blob-1" aria-hidden="true"></div>
+    <div class="bg-decor bg-blob-2" aria-hidden="true"></div>
+    <div class="bg-decor bg-blob-3" aria-hidden="true"></div>
+    <div class="bg-decor bg-blob-4" aria-hidden="true"></div>
+    <div class="bg-decor bg-sparkle" aria-hidden="true">✨</div>
+
+    <div class="todo-container">
+        <header class="todo-header">
+            <h1 class="tag">Tasks</h1>
+            <p class="subtitle">Управляйте вашими задачами</p>
+        </header>
+        <form id="todo-form" class="todo-form">
+            <input 
+                type="text" 
+                id="todo-input" 
+                placeholder="Добавить новую задачу..." 
+                autocomplete="off"
+            >
+            <button type="submit" id="add-btn" class="btn btn--dark">Добавить</button>
+        </form>
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">Все</button>
+            <button class="filter-btn" data-filter="active">Активные</button>
+            <button class="filter-btn" data-filter="completed">Завершённые</button>
+        </div>
+        <div class="counter-badge" id="task-counter">
+            Осталось: 0 | Выполнено: 0
+        </div>
+
+        <ul id="todo-list" class="todo-list"></ul>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
