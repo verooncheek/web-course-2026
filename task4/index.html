@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игра «Быки и коровы»</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-card">
+        <h1>Быки и коровы</h1>
+        <p class="subtitle">Угадайте 4-значное число с неповторяющимися цифрами</p>
+
+        <div class="controls">
+            <button id="btn-new-game" class="btn btn-secondary">Новая игра</button>
+        </div>
+
+        <form id="guess-form" class="guess-form">
+            <div class="input-group">
+                <input 
+                    type="text" 
+                    id="guess-input" 
+                    maxlength="4" 
+                    placeholder="1234" 
+                    autocomplete="off" 
+                    required
+                >
+                <button type="submit" id="btn-submit" class="btn btn-primary">Проверить</button>
+            </div>
+            <div id="error-message" class="error-message" aria-live="polite"></div>
+        </form>
+
+        <div id="win-message" class="win-message hidden"></div>
+
+        <div class="stats">
+            <span>Попыток: <strong id="attempts-count">0</strong></span>
+        </div>
+
+        <div class="history-container">
+            <h2>История ходов</h2>
+            <ul id="history-list" class="history-list"></ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
