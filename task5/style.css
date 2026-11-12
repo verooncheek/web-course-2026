@@ -1,0 +1,123 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Press Start 2P', monospace;
+  background: linear-gradient(to bottom, #0b0914 0%, #2a0845 40%, #ff007f 100%);
+  color: #fff;
+  overflow: hidden;
+  user-select: none;
+}
+
+.game {
+  position: relative;
+  text-align: center;
+  padding: 30px;
+  background: #12131c;
+  border: 3px solid #00ffff;
+  border-radius: 12px;
+  box-shadow: 0 0 25px #00ffff, inset 0 0 15px #00ffff;
+}
+
+h1 {
+  margin: 0 0 25px;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #fff;
+  text-shadow: 2px 2px 0 #ff007f, 0 0 15px #ff007f;
+}
+
+.status {
+  display: flex;
+  justify-content: space-between;
+  max-width: 340px;
+  margin: 0 auto 20px;
+  font-size: 10px;
+}
+
+.score span { color: #ffb703; text-shadow: 0 0 5px #ffb703; }
+.message { color: #00ffff; text-shadow: 0 0 5px #00ffff; }
+
+.board {
+  position: relative;
+  width: 340px;
+  height: 340px;
+  margin: 0 auto 25px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  padding: 10px;
+  background: #000;
+  border: 2px solid #ff007f;
+  box-shadow: 0 0 15px #ff007f, inset 0 0 10px #ff007f;
+}
+
+.pad {
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  outline: none;
+  transition: all 0.1s;
+  background: #111;
+}
+
+.pad-green  { border-top-left-radius: 10px; box-shadow: inset 0 0 20px #00ff41; border-color: #00ff41; }
+.pad-red    { border-top-right-radius: 10px; box-shadow: inset 0 0 20px #ff003c; border-color: #ff003c; }
+.pad-yellow { border-bottom-left-radius: 10px; box-shadow: inset 0 0 20px #ffe600; border-color: #ffe600; }
+.pad-blue   { border-bottom-right-radius: 10px; box-shadow: inset 0 0 20px #00e5ff; border-color: #00e5ff; }
+
+.pad.active {
+  background: currentColor;
+  transform: scale(0.95);
+}
+.pad-green.active  { color: #00ff41; box-shadow: 0 0 30px #00ff41, inset 0 0 30px #fff; }
+.pad-red.active    { color: #ff003c; box-shadow: 0 0 30px #ff003c, inset 0 0 30px #fff; }
+.pad-yellow.active { color: #ffe600; box-shadow: 0 0 30px #ffe600, inset 0 0 30px #fff; }
+.pad-blue.active   { color: #00e5ff; box-shadow: 0 0 30px #00e5ff, inset 0 0 30px #fff; }
+
+.center {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 70px;
+  height: 70px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #12131c;
+  border: 4px solid #ffb703;
+  box-shadow: 0 0 15px #ffb703, inset 0 0 10px #ffb703;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.controls {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.btn {
+  padding: 12px 20px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: #0b0914;
+  background: #00ffff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.1s;
+  box-shadow: 0 4px 0 #008b8b, 0 0 10px #00ffff;
+}
+.btn:hover { background: #fff; box-shadow: 0 4px 0 #008b8b, 0 0 20px #fff; }
+.btn:active { transform: translateY(4px); box-shadow: 0 0 0 #008b8b, 0 0 10px #00ffff; }
+.btn:disabled { background: #333; color: #777; box-shadow: none; cursor: not-allowed; }
+
+.btn-ghost {
+  background: transparent;
+  color: #ff007f;
+  border: 2px solid #ff007f;
+  box-shadow: 0 4px 0 #8b0045;
+}
+.btn-ghost:hover { background: rgba(255, 0, 127, 0.1); box-shadow: 0 4px 0 #8b0045, 0 0 15px #ff007f; }

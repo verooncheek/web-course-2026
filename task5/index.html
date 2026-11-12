@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Игра Simon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="game">
+    <h1>СИМОН<br>ГОВОРИТ</h1>
+
+    <div class="status">
+      <div class="score">РАУНД: <span id="round">0</span></div>
+      <div class="message" id="message">НАЖМИТЕ СТАРТ</div>
+    </div>
+
+    <div class="board" id="board">
+      <button class="pad pad-green"  data-index="0" aria-label="Зелёный"></button>
+      <button class="pad pad-red"    data-index="1" aria-label="Красный"></button>
+      <button class="pad pad-yellow" data-index="2" aria-label="Жёлтый"></button>
+      <button class="pad pad-blue"   data-index="3" aria-label="Синий"></button>
+      <div class="center"></div>
+    </div>
+
+    <div class="controls">
+      <button id="startBtn" class="btn">СТАРТ</button>
+      <button id="resetBtn" class="btn btn-ghost">СБРОС</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
