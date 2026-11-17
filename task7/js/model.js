@@ -1,25 +1,35 @@
 export function createPostModel() {
-  let allPosts = [];
-  let displayedPosts = [];
-  let currentPage = 1;
-  const pageSize = 10;
+  const N_PER_FETCH = 10;
+  const loadedPosts = [];
+  let startIndex = 0;
   let isLoading = false;
   let hasMore = true;
-  let currentSearchQuery = '';
+  let searchQuery = '';
 
   return {
-    getAllPosts: () => allPosts,
-    setAllPosts: (posts) => { allPosts = posts; },
-    getDisplayedPosts: () => displayedPosts,
-    setDisplayedPosts: (posts) => { displayedPosts = posts; },
-    getCurrentPage: () => currentPage,
-    incrementPage: () => { currentPage += 1; },
-    getPageSize: () => pageSize,
+    getPerFetch: () => N_PER_FETCH,
+    getLoadedPosts: () => loadedPosts,
+    appendPosts: (posts) => {
+      loadedPosts.push(...posts);
+      startIndex += posts.length;
+    },
+    resetPosts: () => {
+      loadedPosts.length = 0;
+      startIndex = 0;
+      hasMore = true;
+    },
+    getStartIndex: () => startIndex,
     getIsLoading: () => isLoading,
-    setIsLoading: (val) => { isLoading = val; },
+    setIsLoading: (value) => {
+      isLoading = Boolean(value);
+    },
     getHasMore: () => hasMore,
-    setHasMore: (val) => { hasMore = val; },
-    getSearchQuery: () => currentSearchQuery,
-    setSearchQuery: (query) => { currentSearchQuery = query; }
+    setHasMore: (value) => {
+      hasMore = Boolean(value);
+    },
+    getSearchQuery: () => searchQuery,
+    setSearchQuery: (query) => {
+      searchQuery = query;
+    },
   };
 }
