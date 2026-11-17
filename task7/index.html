@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лента постов — Лабораторная работа №7</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="hero">
+      <div class="badge">Business Feed Pro</div>
+      <h1>Лента постов и обновлений</h1>
+      <p class="subtitle">Интерактивный поток публикаций с бесконечным скроллом, поиском и фильтрацией.</p>
+      
+      <div class="search-box">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Поиск по заголовок поста..." autocomplete="off">
+      </div>
+    </header>
+
+    <main class="feed-section">
+      <div id="postsContainer" class="posts-grid"></div>
+
+      <div id="loadingIndicator" class="loading-indicator hidden">
+        <div class="spinner"></div>
+        <span>Загрузка новых постов...</span>
+      </div>
+
+      <div id="errorContainer" class="error-banner hidden">
+        <span id="errorMessage">Произошла ошибка загрузки.</span>
+        <button id="retryBtn" class="btn-retry">Повторить попытку</button>
+      </div>
+
+      <div id="endMessage" class="end-message hidden">
+        <span>Больше постов нет 🎉</span>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
