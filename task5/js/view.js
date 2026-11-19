@@ -1,41 +1,44 @@
-export function createGameModel() {
-  let state = {
-    sequence: [],
-    playerIndex: 0,
-    round: 0,
-    acceptingInput: false,
-    playing: false
-  };
+import { playTone } from './sound.js';
 
-  let activeTimeouts = [];
+export function createGameView() {
+  const roundEl = document.getElementById('round');
+  const messageEl = document.getElementById('message');
+  const startBtn = document.getElementById('startBtn');
+  const pads = [...document.querySelectorAll('.pad')];
 
   return {
-    getState() {
-      return state;
+    updateRound(round) {
+      roundEl.textContent = round;
     },
-    setState(newState) {
-      state = { ...state, ...newState };
+    setMessage(text) {
+      messageEl.textContent = text;
     },
-    reset() {
-      this.clearAllTimers();
-      state = {
-        sequence: [],
-        playerIndex: 0,
-        round: 0,
-        acceptingInput: false,
-        playing: false
-      };
+    setStartButtonDisabled(isDisabled) {
+      startBtn.disabled = isDisabled;
     },
-    addTimeout(id) {
-      activeTimeouts.push(id);
+    flashPad(index, ms = 300, registerTimeout = null) {
+      return new Promise(resolve => {
+        const pad = pads[index];
+        if (!pad) return resolve();
+
+        pad.classList.add('active');
+        playTone(index, ms / 1000);
+
+        const timerId = setTimeout(() => {
+          pad.classList.remove('active');
+          resolve();
+        }, ms);
+
+        if (registerTimeout) {
+          registerTimeout(timerId);
+        }
+      });
     },
-    clearAllTimers() {
-      activeTimeouts.forEach(id => clearTimeout(id));
-      activeTimeouts = [];
+    clearAllPads() {
+      pads.forEach(p => p.classList.remove('active'));
     },
-    addStep() {
-      const randomStep = Math.floor(Math.random() * 4);
-      state.sequence.push(randomStep);
+    getPads() {
+      return pads;
     }
   };
 }
