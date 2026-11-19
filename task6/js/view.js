@@ -6,6 +6,7 @@ export function createSnakeView() {
   const overlayEl = document.getElementById('overlay');
   const overlayTitleEl = overlayEl.querySelector('h2');
   const finalScoreEl = document.getElementById('finalScore');
+  const restartBtn = document.getElementById('restartBtn');
 
   function drawGrid(cols, rows, cell) {
     ctx.strokeStyle = 'rgba(255, 0, 127, 0.12)';
@@ -31,64 +32,58 @@ export function createSnakeView() {
     const py = apple.y * cell;
 
     ctx.shadowColor = '#ff003c';
-    ctx.shadowBlur = 12;
+    ctx.shadowBlur = cell * 0.6;
     ctx.fillStyle = '#ff003c';
 
     ctx.beginPath();
-    ctx.arc(px + cell / 2, py + cell / 2, cell / 2 - 3, 0, Math.PI * 2);
+    ctx.arc(px + cell / 2, py + cell / 2, cell * 0.35, 0, Math.PI * 2);
     ctx.fill();
 
     ctx.shadowBlur = 0;
     ctx.fillStyle = '#00ff41';
-    ctx.fillRect(px + cell / 2 - 1, py + 2, 3, 5);
+    ctx.fillRect(px + cell * 0.45, py + cell * 0.1, cell * 0.1, cell * 0.25);
+  }
+
+  function drawEyes(head, direction, cell) {
+    const hx = head.x * cell;
+    const hy = head.y * cell;
+    const size = cell * 0.15;
+    const near = cell * 0.25;
+    const far = cell * 0.65;
+
+    ctx.fillStyle = '#0b0914';
+
+    let eyes;
+    if (direction.x === 1) {
+      eyes = [[far, near], [far, far]];
+    } else if (direction.x === -1) {
+      eyes = [[near, near], [near, far]];
+    } else if (direction.y === 1) {
+      eyes = [[near, far], [far, far]];
+    } else {
+      eyes = [[near, near], [far, near]];
+    }
+
+    eyes.forEach(([dx, dy]) => ctx.fillRect(hx + dx, hy + dy, size, size));
   }
 
   function drawSnake(snake, direction, cell) {
     snake.forEach((seg, index) => {
-      const px = seg.x * cell;
-      const py = seg.y * cell;
+      const isHead = index === 0;
+      const color = isHead ? '#00ffff' : '#00a5c5';
 
-      if (index === 0) {
-        ctx.shadowColor = '#00ffff';
-        ctx.shadowBlur = 14;
-        ctx.fillStyle = '#00ffff';
-      } else {
-        ctx.shadowColor = '#00a5c5';
-        ctx.shadowBlur = 6;
-        ctx.fillStyle = '#00a5c5';
-      }
-
-      ctx.fillRect(px + 1, py + 1, cell - 2, cell - 2);
+      ctx.shadowColor = color;
+      ctx.shadowBlur = isHead ? 14 : 6;
+      ctx.fillStyle = color;
+      ctx.fillRect(seg.x * cell + 1, seg.y * cell + 1, cell - 2, cell - 2);
     });
 
     ctx.shadowBlur = 0;
     ctx.shadowColor = 'transparent';
 
-    const head = snake[0];
-    if (!head) return;
-
-    const hx = head.x * cell;
-    const hy = head.y * cell;
-    ctx.fillStyle = '#0b0914';
-
-    let e1;
-    let e2;
-    if (direction.x === 1) {
-      e1 = [hx + 13, hy + 5];
-      e2 = [hx + 13, hy + 13];
-    } else if (direction.x === -1) {
-      e1 = [hx + 5, hy + 5];
-      e2 = [hx + 5, hy + 13];
-    } else if (direction.y === 1) {
-      e1 = [hx + 5, hy + 13];
-      e2 = [hx + 13, hy + 13];
-    } else {
-      e1 = [hx + 5, hy + 5];
-      e2 = [hx + 13, hy + 5];
+    if (snake.length > 0) {
+      drawEyes(snake[0], direction, cell);
     }
-
-    ctx.fillRect(e1[0], e1[1], 3, 3);
-    ctx.fillRect(e2[0], e2[1], 3, 3);
   }
 
   function render(state, config) {
@@ -117,10 +112,24 @@ export function createSnakeView() {
     overlayEl.classList.add('hidden');
   }
 
+  function onKeyDown(handler) {
+    document.addEventListener('keydown', event => {
+      if (handler(event.key)) {
+        event.preventDefault();
+      }
+    });
+  }
+
+  function onRestart(handler) {
+    restartBtn.addEventListener('click', handler);
+  }
+
   return {
     render,
     updateHud,
     showGameOver,
     hideGameOver,
+    onKeyDown,
+    onRestart
   };
 }

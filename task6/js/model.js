@@ -13,8 +13,7 @@ export function createSnakeModel(config = {}) {
     score: 0,
     record: Number(localStorage.getItem('snake_record')) || 0,
     gameOver: false,
-    win: false,
-    lastMoveTime: 0,
+    win: false
   };
 
   function isOccupiedBySnake(x, y, body = state.snake) {
@@ -55,7 +54,7 @@ export function createSnakeModel(config = {}) {
     state.snake = [
       { x: cx, y: cy },
       { x: cx - 1, y: cy },
-      { x: cx - 2, y: cy },
+      { x: cx - 2, y: cy }
     ];
     state.direction = { x: 1, y: 0 };
     state.nextDirection = { x: 1, y: 0 };
@@ -63,7 +62,6 @@ export function createSnakeModel(config = {}) {
     state.score = 0;
     state.gameOver = false;
     state.win = false;
-    state.lastMoveTime = 0;
 
     spawnApple();
   }
@@ -91,7 +89,7 @@ export function createSnakeModel(config = {}) {
     const head = state.snake[0];
     const newHead = {
       x: head.x + state.direction.x,
-      y: head.y + state.direction.y,
+      y: head.y + state.direction.y
     };
 
     if (newHead.x < 0 || newHead.x >= cols || newHead.y < 0 || newHead.y >= rows) {
@@ -127,6 +125,6 @@ export function createSnakeModel(config = {}) {
     reset,
     step,
     setNextDirection,
-    setAppleValue,
+    setAppleValue
   };
 }

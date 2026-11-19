@@ -1,76 +1,85 @@
+const KEY_DIRECTIONS = {
+  ArrowUp: { x: 0, y: -1 },
+  ArrowDown: { x: 0, y: 1 },
+  ArrowLeft: { x: -1, y: 0 },
+  ArrowRight: { x: 1, y: 0 }
+};
+
 export function createSnakeController(model, view) {
   let animationFrameId = null;
+  let lastMoveTime = null;
+
+  function stopLoop() {
+    if (animationFrameId !== null) {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
+    }
+  }
+
+  function startLoop() {
+    stopLoop();
+    lastMoveTime = null;
+    animationFrameId = requestAnimationFrame(gameLoop);
+  }
+
+  function update(currentTime) {
+    if (lastMoveTime === null) {
+      lastMoveTime = currentTime;
+      return;
+    }
+
+    const { moveInterval } = model.getConfig();
+    const deltaTime = currentTime - lastMoveTime;
+    if (deltaTime < moveInterval) return;
+    lastMoveTime = currentTime - (deltaTime % moveInterval);
+
+    model.step();
+
+    const state = model.getState();
+    view.updateHud(state.score, state.record);
+
+    if (state.gameOver) {
+      view.showGameOver(state.score, state.win);
+    }
+  }
+
+  function draw() {
+    view.render(model.getState(), model.getConfig());
+  }
+
+  function gameLoop(currentTime) {
+    update(currentTime);
+    draw();
+
+    if (model.getState().gameOver) {
+      animationFrameId = null;
+      return;
+    }
+    animationFrameId = requestAnimationFrame(gameLoop);
+  }
 
   function startNewGame() {
     model.reset();
     const state = model.getState();
     view.hideGameOver();
     view.updateHud(state.score, state.record);
-    view.render(state, model.getConfig());
+    draw();
+    startLoop();
   }
 
-  function update(currentTime) {
-    const state = model.getState();
-    const config = model.getConfig();
+  function handleKeyDown(key) {
+    const direction = KEY_DIRECTIONS[key];
+    if (!direction) return false;
 
-    if (state.gameOver) return;
-
-    if (state.lastMoveTime === 0) {
-      state.lastMoveTime = currentTime;
-      return;
-    }
-
-    const deltaTime = currentTime - state.lastMoveTime;
-    if (deltaTime >= config.moveInterval) {
-      state.lastMoveTime = currentTime;
-      model.step();
-
-      const updatedState = model.getState();
-      view.updateHud(updatedState.score, updatedState.record);
-
-      if (updatedState.gameOver) {
-        view.showGameOver(updatedState.score, updatedState.win);
-      }
-    }
-  }
-
-  function gameLoop(currentTime) {
-    update(currentTime);
-    view.render(model.getState(), model.getConfig());
-    animationFrameId = requestAnimationFrame(gameLoop);
-  }
-
-  function handleKeyDown(event) {
-    const keyMap = {
-      ArrowUp: { x: 0, y: -1 },
-      ArrowDown: { x: 0, y: 1 },
-      ArrowLeft: { x: -1, y: 0 },
-      ArrowRight: { x: 1, y: 0 },
-    };
-
-    const nextDir = keyMap[event.key];
-    if (!nextDir) return;
-
-    event.preventDefault();
-    model.setNextDirection(nextDir);
+    model.setNextDirection(direction);
+    return true;
   }
 
   function init() {
-    const restartBtn = document.getElementById('restartBtn');
-
-    document.addEventListener('keydown', handleKeyDown);
-    restartBtn.addEventListener('click', startNewGame);
-
+    view.onKeyDown(handleKeyDown);
+    view.onRestart(startNewGame);
     startNewGame();
-
-    if (animationFrameId !== null) {
-      cancelAnimationFrame(animationFrameId);
-    }
-    animationFrameId = requestAnimationFrame(gameLoop);
   }
 
-  return {
-    init,
-    startNewGame,
-  };
+  return { init, startNewGame };
 }
