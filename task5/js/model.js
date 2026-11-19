@@ -1,41 +1,53 @@
-export function createGameModel() {
-  let state = {
+function createInitialState() {
+  return {
     sequence: [],
-    playerIndex: 0,
+    playerInput: [],
     round: 0,
     acceptingInput: false,
     playing: false
   };
+}
 
-  let activeTimeouts = [];
+export function createGameModel() {
+  let state = createInitialState();
+  const activeTimeouts = new Set();
+
+  function clearAllTimers() {
+    activeTimeouts.forEach(id => clearTimeout(id));
+    activeTimeouts.clear();
+  }
 
   return {
     getState() {
       return state;
     },
+
     setState(newState) {
       state = { ...state, ...newState };
     },
+
     reset() {
-      this.clearAllTimers();
-      state = {
-        sequence: [],
-        playerIndex: 0,
-        round: 0,
-        acceptingInput: false,
-        playing: false
-      };
+      clearAllTimers();
+      state = createInitialState();
     },
-    addTimeout(id) {
-      activeTimeouts.push(id);
-    },
-    clearAllTimers() {
-      activeTimeouts.forEach(id => clearTimeout(id));
-      activeTimeouts = [];
-    },
+
     addStep() {
       const randomStep = Math.floor(Math.random() * 4);
-      state.sequence.push(randomStep);
-    }
+      state = { ...state, sequence: [...state.sequence, randomStep] };
+    },
+
+    addPlayerInput(index) {
+      state = { ...state, playerInput: [...state.playerInput, index] };
+    },
+
+    addTimeout(id) {
+      activeTimeouts.add(id);
+    },
+
+    removeTimeout(id) {
+      activeTimeouts.delete(id);
+    },
+
+    clearAllTimers
   };
 }

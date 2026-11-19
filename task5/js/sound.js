@@ -1,5 +1,7 @@
 let audioCtx = null;
+
 const TONES = [440, 330, 220, 550];
+const ERROR_TONE = 110;
 
 function ensureAudio() {
   if (!audioCtx) {
@@ -11,7 +13,11 @@ function ensureAudio() {
   }
 }
 
-export function playTone(index, duration = 0.3) {
+export function unlockAudio() {
+  ensureAudio();
+}
+
+function beep(frequency, duration) {
   ensureAudio();
   if (!audioCtx) return;
 
@@ -19,7 +25,7 @@ export function playTone(index, duration = 0.3) {
   const gain = audioCtx.createGain();
 
   osc.type = 'square';
-  osc.frequency.value = TONES[index] || 440;
+  osc.frequency.value = frequency;
 
   const t = audioCtx.currentTime;
   gain.gain.setValueAtTime(0.0001, t);
@@ -29,4 +35,12 @@ export function playTone(index, duration = 0.3) {
   osc.connect(gain).connect(audioCtx.destination);
   osc.start(t);
   osc.stop(t + duration + 0.05);
+}
+
+export function playTone(index, duration = 0.3) {
+  beep(TONES[index] ?? 440, duration);
+}
+
+export function playErrorTone() {
+  beep(ERROR_TONE, 0.5);
 }

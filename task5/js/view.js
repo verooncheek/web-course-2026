@@ -1,44 +1,55 @@
-import { playTone } from './sound.js';
-
 export function createGameView() {
   const roundEl = document.getElementById('round');
   const messageEl = document.getElementById('message');
   const startBtn = document.getElementById('startBtn');
+  const resetBtn = document.getElementById('resetBtn');
   const pads = [...document.querySelectorAll('.pad')];
 
   return {
     updateRound(round) {
       roundEl.textContent = round;
     },
+
     setMessage(text) {
       messageEl.textContent = text;
     },
+
     setStartButtonDisabled(isDisabled) {
       startBtn.disabled = isDisabled;
     },
-    flashPad(index, ms = 300, registerTimeout = null) {
+    
+    flashPad(index, ms, schedule) {
       return new Promise(resolve => {
         const pad = pads[index];
-        if (!pad) return resolve();
+        if (!pad) {
+          resolve();
+          return;
+        }
 
         pad.classList.add('active');
-        playTone(index, ms / 1000);
-
-        const timerId = setTimeout(() => {
+        schedule(() => {
           pad.classList.remove('active');
           resolve();
         }, ms);
-
-        if (registerTimeout) {
-          registerTimeout(timerId);
-        }
       });
     },
+
     clearAllPads() {
-      pads.forEach(p => p.classList.remove('active'));
+      pads.forEach(pad => pad.classList.remove('active'));
     },
-    getPads() {
-      return pads;
+
+    onStart(handler) {
+      startBtn.addEventListener('click', handler);
+    },
+
+    onReset(handler) {
+      resetBtn.addEventListener('click', handler);
+    },
+
+    onPadClick(handler) {
+      pads.forEach(pad => {
+        pad.addEventListener('click', () => handler(Number(pad.dataset.index)));
+      });
     }
   };
 }
