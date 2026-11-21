@@ -1,6 +1,7 @@
 const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts';
 const SCROLL_OFFSET = 200;
 const SEARCH_DEBOUNCE_MS = 300;
+const SCROLL_TOP_SHOW_AFTER = 400;
 
 export function createPostController(model, view) {
   let debounceTimer = null;
@@ -65,6 +66,15 @@ export function createPostController(model, view) {
     }
   }
 
+  function updateScrollTopButton() {
+    view.setScrollTopVisible(view.isScrolledDown(SCROLL_TOP_SHOW_AFTER));
+  }
+
+  function handleScroll() {
+    loadMoreIfNeeded();
+    updateScrollTopButton();
+  }
+
   function handleSearchInput(value) {
     clearTimeout(debounceTimer);
 
@@ -77,7 +87,8 @@ export function createPostController(model, view) {
   function init() {
     view.onSearchInput(handleSearchInput);
     view.onRetry(fetchNextBatch);
-    view.onScroll(loadMoreIfNeeded);
+    view.onScroll(handleScroll);
+    view.onScrollTopClick(view.scrollToTop);
 
     fetchNextBatch();
   }

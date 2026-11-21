@@ -6,6 +6,7 @@ export function createPostView() {
   const endMessage = document.getElementById('endMessage');
   const searchInput = document.getElementById('searchInput');
   const retryBtn = document.getElementById('retryBtn');
+  const scrollTopBtn = document.getElementById('scrollTopBtn');
 
   function createTextElement(tag, className, text) {
     const el = document.createElement(tag);
@@ -70,6 +71,22 @@ export function createPostView() {
     return scrollBottom >= document.documentElement.scrollHeight - offset;
   }
 
+  function isScrolledDown(offset) {
+    return window.scrollY > offset;
+  }
+
+  function setScrollTopVisible(visible) {
+    scrollTopBtn.classList.toggle('hidden', !visible);
+  }
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function onScrollTopClick(handler) {
+    scrollTopBtn.addEventListener('click', handler);
+  }
+
   function onSearchInput(handler) {
     searchInput.addEventListener('input', event => handler(event.target.value));
   }
@@ -89,6 +106,10 @@ export function createPostView() {
     hideError,
     showEndMessage,
     isNearBottom,
+    isScrolledDown,
+    setScrollTopVisible,
+    scrollToTop,
+    onScrollTopClick,
     onSearchInput,
     onRetry,
     onScroll
